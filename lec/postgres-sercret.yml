@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: pg-secret
+type: Opaque
+data:
+  POSTGRES_DB: ZGVtwb==
+  POSTGRES_USER: ZGVtwb==
+  POSTGRES_PASSWORD: ZGVtwb==
