@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-np
+spec:
+  type: NodePort
+  ports:
+    - port: 3000 # port is used to get access to the pod inside k8s cluster
+      targetPort: 80 #port of Pod (deployment) (Ngnix)
+      nodePort: 31300 #outside port, availabe from localhost
+  selector:
+    components: frontend
