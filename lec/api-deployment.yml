@@ -27,3 +27,20 @@ spec:
                 secretKeyRef:
                   name: short-api-secret
                   key: POSTGRES_URL
+          livenessProbe:
+            exec:
+              command:
+                - curl
+                - --fail
+                - http://localhost:3000/api
+            initialDelaySeconds: 30
+            periodSeconds: 5
+            failureThreshold: 1
+          volumeMounts:
+            - mountPath: /etc/test
+              name: test
+              readOnly: true
+      volumes:
+        - name: test
+          configMap:
+            name: demo-config
