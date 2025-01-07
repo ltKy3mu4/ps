@@ -1,0 +1,52 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      components: api
+  template:
+    metadata:
+      name: api
+      labels:
+        components: api
+    spec:
+      containers:
+        - name: short-api
+          image: antonlarichev/conv-api:1.0
+          env:
+            - name: AMQP_USER
+              valueFrom:
+                secretKeyRef:
+                  name: rmq-secret
+                  key: RABBITMQ_DEFAULT_USER
+            - name: AMQP_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: rmq-secret
+                  key: RABBITMQ_DEFAULT_PASS
+            - name: AMQP_HOSTNAME
+              valueFrom:
+                secretKeyRef:
+                  name: rmq-secret
+                  key: RABBITMQ_CLUSTER_IP
+            - name: AMQP_EXCHANGE
+              valueFrom:
+                secretKeyRef:
+                  name: rmq-secret
+                  key: RABBITMQ_EXCHANGE
+          volumeMounts:
+            - mountPath: /opt/app/uploads
+              name: api-data
+#          ports:
+#            - containerPort: 80
+          resources:
+            limits:
+              memory: "512Mi"
+              cpu: "300m"
+      volumes:
+        - name: api-data
+          persistentVolumeClaim:
+            claimName: api-pvc
