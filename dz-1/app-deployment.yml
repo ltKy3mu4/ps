@@ -22,3 +22,9 @@ spec:
             limits:
               memory: "512Mi"
               cpu: "300m"
+          env:
+            - name: VITE_DOMAIN
+              valueFrom:
+                configMapKeyRef:
+                  name: app-cfg
+                  key: VITE_DOMAIN

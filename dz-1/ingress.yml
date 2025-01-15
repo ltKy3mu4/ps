@@ -17,3 +17,17 @@ spec:
                 name: dz-app-clusterip
                 port:
                   number: 80
+          - path: "/api"
+            pathType: Prefix
+            backend:
+              service:
+                name: convservice-clusterip
+                port:
+                  number: 3000
+          - path: "/uploads"
+            pathType: Prefix
+            backend:
+              service:
+                name: convservice-clusterip
+                port:
+                  number: 3000

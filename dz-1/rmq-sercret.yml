@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: rmq-secret
+type: Opaque
+data:
+  RABBITMQ_DEFAULT_USER: cm1xdXNlcg==
+  RABBITMQ_DEFAULT_PASS: cm1xcGFzcw==
+  RABBITMQ_CLUSTER_IP: cm1xLWNsdXN0ZXJpcA==
+  RABBITMQ_EXCHANGE: dGVzdA==
+  RABBITMQ_QUEUE: dGVzdA==
